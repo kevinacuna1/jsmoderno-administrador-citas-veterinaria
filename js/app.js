@@ -6,15 +6,6 @@ const sintomasInput = document.querySelector('#sintomas');
 
 const formulario = document.querySelector('#formulario-cita');
 
-// Objeto de Cita
-const citaObj = {
-    paciente: '',
-    propietario: '',
-    email: '',
-    fecha: '',
-    sintomas: ''
-}
-
 // Eventos
 pacienteInput.addEventListener('change', datosCita);
 propietarioInput.addEventListener('change', datosCita);
@@ -24,24 +15,14 @@ sintomasInput.addEventListener('change', datosCita);
 
 formulario.addEventListener('submit', submitCita);
 
-function datosCita(e) {
-    citaObj[e.target.name] = e.target.value;
-}
-
-function submitCita(e) {
-    e.preventDefault();
-
-    // some va a verificar que al menos un campo del objeto este vacio
-    if (Object.values(citaObj).some(campo => campo.trim() === '')) {
-        new Notificacion({
-            mensaje: 'Todos los campos son obligatorios',
-            tipo: 'error'
-        });
-        return;
-    }
-
-    console.log('Cita creada');
-}
+// Objeto de Cita
+const citaObj = {
+    paciente: '',
+    propietario: '',
+    email: '',
+    fecha: '',
+    sintomas: ''
+};
 
 class Notificacion {
     constructor({ mensaje, tipo }) {
@@ -76,4 +57,37 @@ class Notificacion {
             alerta.remove();
         }, 3000);
     }
+}
+
+class AdminCitas {
+    constructor() {
+        this.citas = [];
+    }
+
+    agregar(cita) {
+        this.citas = [...this.citas, cita];
+
+        console.log(this.citas);
+    }
+}
+
+function datosCita(e) {
+    citaObj[e.target.name] = e.target.value;
+}
+
+const citas = new AdminCitas();
+
+function submitCita(e) {
+    e.preventDefault();
+
+    // some va a verificar que al menos un campo del objeto este vacio
+    if (Object.values(citaObj).some(campo => campo.trim() === '')) {
+        new Notificacion({
+            mensaje: 'Todos los campos son obligatorios',
+            tipo: 'error'
+        });
+        return;
+    }
+
+    citas.agregar({ ...citaObj });
 }
