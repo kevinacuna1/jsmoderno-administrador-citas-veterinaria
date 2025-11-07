@@ -32,10 +32,36 @@ function submitCita(e) {
     e.preventDefault();
 
     // some va a verificar que al menos un campo del objeto este vacio
-    if( Object.values(citaObj).some(campo => campo.trim() === '') ) {
-        console.log('Todos los campos son obligatorios');
+    if (Object.values(citaObj).some(campo => campo.trim() === '')) {
+        const notificacion = new Notificacion({
+            mensaje: 'Todos los campos son obligatorios',
+            tipo: 'error'
+        });
         return;
     }
 
     console.log('Cita creada');
+}
+
+class Notificacion {
+    constructor({ mensaje, tipo }) {
+        this.mensaje = mensaje;
+        this.tipo = tipo;
+        this.mostrar();
+    }
+
+    mostrar() {
+        // Crear el div
+        const alerta = document.createElement('div');
+        alerta.classList.add('text-center', 'w-full', 'p-3', 'text-white', 'my-5', 'alert', 'uppercase', 'font-bold', 'text-sm');
+
+        // Si es de tipo error, agrega una clase, si no, otra clase
+        this.tipo === 'error' ? alerta.classList.add('bg-red-500') : alerta.classList.add('bg-green-500');
+
+        // Mensaje de error
+        alerta.textContent = this.mensaje;
+
+        // insertBefore toma dos argumentos: 1. que elemento quiero insertar, 2. antes de que elemento lo quiero insertar
+        formulario.parentElement.insertBefore(alerta, formulario);
+    }
 }
