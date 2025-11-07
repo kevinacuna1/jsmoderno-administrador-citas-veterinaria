@@ -1,27 +1,26 @@
 const pacienteInput = document.querySelector('#paciente');
 const propietarioInput = document.querySelector('#propietario');
-const telefonoInput = document.querySelector('#telefono');
+const emailInput = document.querySelector('#email');
 const fechaInput = document.querySelector('#fecha');
-const horaInput = document.querySelector('#hora');
 const sintomasInput = document.querySelector('#sintomas');
 
 // Objeto de Cita
 const citaObj = {
     paciente: '',
     propietario: '',
-    telefono: '',
+    email: '',
     fecha: '',
-    hora: '',
     sintomas: ''
 }
 
 // Eventos
-pacienteInput.addEventListener('change', (e) => {
-    citaObj[e.target.name] = e.target.value;
-    console.log(citaObj);
-});
+pacienteInput.addEventListener('change', datosCita);
+propietarioInput.addEventListener('change', datosCita);
+emailInput.addEventListener('change', datosCita);
+fechaInput.addEventListener('change', datosCita);
+sintomasInput.addEventListener('change', datosCita);
 
-propietarioInput.addEventListener('change', (e) => {
+function datosCita(e) {
     citaObj[e.target.name] = e.target.value;
     console.log(citaObj);
-});
+}
