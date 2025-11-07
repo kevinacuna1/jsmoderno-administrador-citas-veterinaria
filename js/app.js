@@ -26,10 +26,16 @@ formulario.addEventListener('submit', submitCita);
 
 function datosCita(e) {
     citaObj[e.target.name] = e.target.value;
-    console.log(citaObj);
 }
 
 function submitCita(e) {
     e.preventDefault();
-    console.log('Enviando Cita...');
+
+    // some va a verificar que al menos un campo del objeto este vacio
+    if( Object.values(citaObj).some(campo => campo.trim() === '') ) {
+        console.log('Todos los campos son obligatorios');
+        return;
+    }
+
+    console.log('Cita creada');
 }
