@@ -6,7 +6,7 @@ const horaInput = document.querySelector('#hora');
 const sintomasInput = document.querySelector('#sintomas');
 
 // Objeto de Cita
-const obj = {
+const citaObj = {
     paciente: '',
     propietario: '',
     telefono: '',
@@ -15,4 +15,13 @@ const obj = {
     sintomas: ''
 }
 
-console.log(obj);
+// Eventos
+pacienteInput.addEventListener('change', (e) => {
+    citaObj.paciente = e.target.value;    
+    console.log(citaObj);
+});
+
+propietarioInput.addEventListener('change', (e) => {
+    citaObj.propietario = e.target.value;    
+    console.log(citaObj);
+});
